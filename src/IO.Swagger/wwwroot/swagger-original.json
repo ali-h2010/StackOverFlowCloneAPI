@@ -1,0 +1,234 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the documentation of the StackOverflow's core features assignment.  You can find out more about Swagger at [http://swagger.io](http://swagger.io)",
+    "version" : "1.0.0",
+    "title" : "StackOverflow Core Features",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "email" : "ali.h2030@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "test.swagger.io",
+  "basePath" : "/v2",
+  "tags" : [ {
+    "name" : "Questions",
+    "description" : "All operations about questions"
+  }, {
+    "name" : "Answers",
+    "description" : "All operations about answers"
+  }, {
+    "name" : "Tags",
+    "description" : "All operations about tags"
+  } ],
+  "schemes" : [ "https", "http" ],
+  "paths" : {
+    "/SubmitQuestion" : {
+      "post" : {
+        "tags" : [ "Questions" ],
+        "summary" : "Posting new question to the system",
+        "description" : "",
+        "operationId" : "addQuestion",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Question object that needs to be added",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Question"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Question was added successfully"
+          },
+          "405" : {
+            "description" : "Invalid input"
+          }
+        }
+      }
+    },
+    "/SubmitAnswer" : {
+      "post" : {
+        "tags" : [ "Answers" ],
+        "summary" : "Posting new answer to a question",
+        "description" : "",
+        "operationId" : "addAnswer",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Answer object that needs to be added to a question",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Answer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Answer was added successfully"
+          },
+          "405" : {
+            "description" : "Invalid input"
+          }
+        }
+      }
+    },
+    "/AssignTagToQuestion" : {
+      "post" : {
+        "tags" : [ "Tags" ],
+        "summary" : "Assigning new tag to a question",
+        "description" : "",
+        "operationId" : "addTagToQuestion",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Tag type and quesiton to assign the tag to",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Tags"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Answer was added successfully"
+          },
+          "405" : {
+            "description" : "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Question" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "description" : "description",
+        "id" : 0,
+        "title" : "title"
+      }
+    },
+    "Answer" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "questionID" : {
+          "type" : "integer"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "questionID" : 6,
+        "description" : "description",
+        "id" : 0
+      }
+    },
+    "CommentsOfQuestions" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "questionID" : {
+          "type" : "integer"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CommentsOfAnswers" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "questionID" : {
+          "type" : "integer"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Tags" : {
+      "type" : "object",
+      "properties" : {
+        "TagID" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "questionID" : {
+          "type" : "integer"
+        }
+      },
+      "example" : {
+        "questionID" : 6,
+        "TagID" : 0
+      }
+    },
+    "TagsToQuestionsMapping" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "questionID" : {
+          "type" : "integer"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ApiResponse" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    }
+  },
+  "externalDocs" : {
+    "description" : "Find out more about Swagger",
+    "url" : "http://swagger.io"
+  }
+}
